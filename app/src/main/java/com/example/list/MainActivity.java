@@ -2,6 +2,7 @@ package com.example.list;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
@@ -91,6 +92,30 @@ public class MainActivity extends AppCompatActivity {
             name.setText(shopName);
             //ボタンを押せるように変更
             saveButton.setEnabled(true);
+            //データベースヘルパーオブジェクトの作成
+            DatabaseHelper helper = new DatabaseHelper(MainActivity.this);
+            //データベース接続オブジェクトを取得する
+            SQLiteDatabase db = helper.getWritableDatabase();
+            try {
+                //検索SQL文字列の用意
+                String spl = "SELECT * FROM shopping WHERE _id = " + shopID;
+                //SQL実行
+                Cursor cursor =db.rawQuery(spl,null);
+                //データベースから取得した値を格納する変数用意
+                String note = "";
+                //戻り値取得
+                while(cursor.moveToNext()){
+                    int idxNote =cursor.getColumnIndex("note");
+                    //実際のデータを取得する
+                    note = cursor.getString(idxNote);
+                }
+                //入力欄の部品を取得して反映
+                EditText editText =findViewById(R.id.editText);
+                editText.setText(note);
+            }
+            finally {
+                db.close();
+            }
 
         }
     }
