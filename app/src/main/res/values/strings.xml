@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">List</string>
+    <string name="app_name">DB</string>
+    <string-array name="shoppingList">
+        <item>リンゴ</item>
+        <item>おこめ</item>
+        <item>ゲーム</item>
+    </string-array>
+    <string name="title">選択されたもの</string>
+    <string name="name">未選択</string>
+    <string name="much">料金</string>
+    <string name="save">保存</string>
 </resources>
